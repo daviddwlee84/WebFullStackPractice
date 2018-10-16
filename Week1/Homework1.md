@@ -76,7 +76,7 @@ What is Protocol?
     * Ports are indicated in TCP and UDP's header
     * Popular applications have been assigned specific port numbers
         * Web server: 80
-        * Main server: 25
+        * Mail server: 25
         * ...
 
 ## 3. Basic manipulation of Git and common commands
