@@ -4,9 +4,19 @@
 
 Use Koa to implement the web application of the example of *The Node Beginner Book*. Upload to Github repository, and summary the problem and solution during developing process.
 
+* [Koa.js](https://koajs.com/)
+
+> Koa is a new web framework designed by the team behind Express, which aims to be a smaller, more expressive, and more robust foundation for web applications and APIs. By leveraging async functions, Koa allows you to ditch callbacks and greatly increase error-handling. Koa does not bundle any middleware within its core, and it provides an elegant suite of methods that make writing servers fast and enjoyable.
+
 ## 2. RESTful API
 
 Explain the pros and cons of RESTful API
+
+---
+
+> Additional Notes
+
+---
 
 ## Notes about Node.js (and JavaScript)
 
