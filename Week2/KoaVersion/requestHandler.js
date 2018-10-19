@@ -1,8 +1,8 @@
 const fs = require('fs')
 
-//const uploadImg = multer({dist: 'tmp/'}).single('image')
+const asyncBusboy = require('async-busboy')
 
-function start(response){
+function start(ctx){
     console.log("Request handler 'start' was called.")
 
     const body = '<html>' +
@@ -17,28 +17,28 @@ function start(response){
         '</body>'+
         '</html>'
     
-    response.status = 200
-    response.type = 'text/html'
-    response.body = body
+    ctx.response.status = 200
+    ctx.response.type = 'text/html'
+    ctx.response.body = body
 }
 
-function upload(response, request){
+async function upload(ctx){
     console.log("Request handler 'upload' was called.")
 
     console.log("about to parse")
-
-    const file = request.file
-    console.log(file)
-    const reader = fs.createReadStream(file.path)
+    const {files, fields} = await asyncBusboy(ctx.req)
     console.log("parsing done")
 
-    const stream = fs.createWriteStream("/tmp/test.png")
-    reader.pipe(stream)
-
-    response.status = 200
-    response.type = 'text/html'
-    response.body = "received image: <br/>"+
-                    "<img src='/show' />"
+    fs.rename(files[0].path, "/tmp/test.png", function(error){
+      if(error){
+        fs.unlink("/tmp/test.png")
+        fs.rename(files.upload.path, "/tmp/test.png")
+      }
+    })
+    ctx.response.status = 200
+    ctx.response.type = 'text/html'
+    ctx.response.body = "received image: <br/>"+
+                        "<img src='/show' />"
 }
 
 function show(ctx) {
