@@ -44,7 +44,94 @@ app.use(async ctx => {
 
 ## 2. RESTful API
 
-Explain the pros and cons of RESTful API
+### Overview
+
+RESTful is a design fasion or style. Or can be considered as a standard.
+
+* Pros and Cons of RESTful API
+    * Advantages
+        * Clear and Short URI: Very easy to read and understand
+        * Show resource in an elegant way
+
+            Use different method to manipulate the same resource can be represented in the same URI (same interface, same endpoint) by using different HTTP verbs (e.g. a page, a file)
+
+    * Disadvantages
+        * Security problem
+            
+            If other people get to well know your URL structure it will be dangerous. (e.g. Operate CRUD to your database)
+
+        * Privacy problem
+
+            If URL is designed in sequence. (e.g. /api/users/1/ ... /api/users/100/), then a user is able to see other user's page.
+
+### Detail
+
+* API = Application Programming Interface
+* REST = (Resource) Respresentational State Transfer
+    * Resource: decide by [URI](https://en.wikipedia.org/wiki/Uniform_Resource_Identifier) (URL is a sort of URI)
+    * Representational: JSON, XML, YAML
+    * State Transfer: use HTTP verbs (GET, POST, PUT, DELETE)
+* CRUD: Database operations (state of resources)
+    * Create
+    * Read
+    * Update
+    * Delete
+* HTTP Verbs (HTTP Request Methods): The HTTP verbs comprise a major portion of our “uniform interface” constraint and provide us the action counterpart to the noun-based resource.
+    * POST
+    * GET
+    * PUT
+    * PATCH
+    * DELETE
+* Method Idempotent: No matter how many times you request. The response will be the same.
+    * If a method won't modify the server, it is considered a safe method
+* Endpoints: The URI/URL where api/service can be accessed by a client application
+* Authentication: Some API's require authentication to use the service (e.g. `?acces_token=OAUTH-TOKEN`)
+
+#### The CRUD operations correspond to the HTTP Verbs
+
+HTTP Verb|CRUD          |Method Idempotent|Modify Server
+---------|--------------|-----------------|-------------
+POST     |Create        |No               |Yes
+GET      |Read          |Yes              |No
+PUT      |Update/Replace|Yes              |Yes
+PATCH    |Update/Modify |No               |Yes
+DELETE   |Delete        |Yes              |Yes
+OPTIONS  |-             |Yes              |-
+HEAD     |-             |Yes              |-
+
+* HTTP Status Code (Response Code)
+    * **2xx Success**
+        * **200 OK**: General success status code. This is the most common code. Used to indicate success.
+        * **201 CREATED**: Successful creation occurred (via either POST or PUT). Set the Location header to contain a link to the newly-created resource (on POST). Response body content may or may not be present.
+        * **204 NO CONTENT**: Indicates success but nothing is in the response body, often used for DELETE and PUT operations.
+    * **4xx Client Error**
+        * **400 BAD REQUEST**: General error for when fulfilling the request would cause an invalid state. Domain validation errors, missing data, etc. are some examples.
+        * **401 UNAUTHORIZED**: Error code response for missing or invalid authentication token.
+        * **403 FORBIDDEN**: Error code for when the user is not authorized to perform the operation or the resource is unavailable for some reason (e.g. time constraints, etc.).
+        * **404 NOT FOUND**: Used when the requested resource is not found, whether it doesn't exist or if there was a 401 or 403 that, for security reasons, the service wants to mask.
+        * **405 METHOD NOT ALLOWED**: Used to indicate that the requested URL exists, but the requested HTTP method is not applicable. For example, POST /users/12345 where the API doesn't support creation of resources this way (with a provided ID). The Allow HTTP header must be set when returning a 405 to indicate the HTTP methods that are supported. In the previous case, the header would look like "Allow: GET, PUT, DELETE"
+        * **409 CONFLICT**: Whenever a resource conflict would be caused by fulfilling the request. Duplicate entries, such as trying to create two customers with the same information, and deleting root objects when cascade-delete is not supported are a couple of examples.
+    * **5xx Server Error**
+        * **500 INTERNAL SERVER ERROR**: Never return this intentionally. The general catch-all error when the server-side throws an exception. Use this only for errors that the consumer cannot address from their end.
+
+### Others
+
+* To create an API document
+    * [Aglio](https://github.com/danielgtaylor/aglio)
+        * [Tutorial](https://github.com/twtrubiks/aglio_tutorial)
+    * [Swagger](http://swagger.io)
+        * [Tutorial](https://github.com/twtrubiks/django_rest_framework_swagger_tutorial)
+
+### References
+
+* [Learn REST: A RESTful Tutorial](https://www.restapitutorial.com/)
+    * [HTTP Status Codes](https://www.restapitutorial.com/httpstatuscodes.html)
+* [認識 RESTful API](https://github.com/twtrubiks/django-rest-framework-tutorial/tree/master/RESTful-API-Tutorial)
+    * [Youtube Tutorial](https://youtu.be/gHCB0sd47Is)
+* [Youtube - REST API concepts and examples](https://youtu.be/7YcW25PHnAA)
+* [Youtube - What is a RESTful API? Explanation of REST & HTTP](https://youtu.be/Q-BpqyOT3a8)
+
+* [Wiki - HTTP Protocol](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol)
 
 ---
 
@@ -87,7 +174,7 @@ Goal: A web application that can upload image and show it on the browser.
 * Function can be pass as an variable.
 * Anonymous function: define and pass a function as aparameter to another function in-place
 
-(see the difference between two version of writting style ([Anonymous Function](some-node-practice/1-basic-http-server.js))(([Passing Function](some-node-practice/2-another-form.js)))
+(see the difference between two version of writting style ([Anonymous Function](some-node-practice/1-basic-http-server.js))([Passing Function](some-node-practice/2-another-form.js)))
 
 ### Event-driven asynchronous callbacks
 
@@ -198,6 +285,13 @@ Program won't execute in the "sequence". ([Example](some-node-practice/7-1-nonbl
 
 ## Notes about this project
 
+Dependencies
+
+* koa
+* koa-router
+* async-busyboy
+* fs
+
 ### 404 page
 
 * [Handle a 404 error](https://github.com/alexmingoia/koa-router/issues/371)
@@ -217,6 +311,8 @@ Program won't execute in the "sequence". ([Example](some-node-practice/7-1-nonbl
 * [Node Koa2 實戰](https://github.com/ikcamp/koa2-tutorial)
 
 * [Use ES6 import syntax in Node.js](https://stackoverflow.com/questions/39436322/node-js-syntaxerror-unexpected-token-import)
+
+* [Postman](https://www.getpostman.com/): An API Development Environment
 
 ## Author
 
