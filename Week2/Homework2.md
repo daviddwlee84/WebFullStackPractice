@@ -8,6 +8,36 @@ Use Koa to implement the web application of the example of *The Node Beginner Bo
 
 > Koa is a new web framework designed by the team behind Express, which aims to be a smaller, more expressive, and more robust foundation for web applications and APIs. By leveraging async functions, Koa allows you to ditch callbacks and greatly increase error-handling. Koa does not bundle any middleware within its core, and it provides an elegant suite of methods that make writing servers fast and enjoyable.
 
+### Cascading
+
+* Handling callbacks by using `async`, `await` and `next`.
+* Simply passes control (`next`) through series of functions until one returns, Koa invoke "downstream", then control flows back "upstream"
+
+### Context
+
+A Context is created per request, and is referenced in middleware as the receiver, or the ctx identifier
+
+```javascript
+app.use(async ctx => {
+  ctx; // is the Context
+  ctx.request; // is a Koa Request
+  ctx.response; // is a Koa Response
+});
+```
+
+### Koa Middlewares
+
+* `koa-router`: for router and work with koa-multer
+* `koa-multer`: for upload file
+
+* `koa-bodyparser`: for parse jason and form
+* `koa-send`: for download file
+* `koa-session`: for session
+* `koa-sslify`: forced change to https
+* `koa-favicon`
+* `koa-logger`
+* `koa-static`
+
 ## 2. RESTful API
 
 Explain the pros and cons of RESTful API
@@ -165,6 +195,8 @@ Program won't execute in the "sequence". ([Example](some-node-practice/7-1-nonbl
 ## Notes about this project
 
 ## Links
+
+* [Node Koa2 實戰](https://github.com/ikcamp/koa2-tutorial)
 
 ## Author
 
