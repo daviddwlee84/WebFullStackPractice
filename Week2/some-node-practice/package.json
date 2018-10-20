@@ -1,0 +1,16 @@
+{
+  "name": "some-node-practice",
+  "version": "1.0.0",
+  "description": "",
+  "main": "1-basic-http-server.js",
+  "dependencies": {
+    "formidable": "^1.2.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

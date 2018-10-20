@@ -1,0 +1,17 @@
+{
+  "name": "img_uploader",
+  "version": "1.0.0",
+  "description": "A simple image uploader built with Koa.js",
+  "main": "index.js",
+  "dependencies": {
+    "async-busboy": "^0.7.0",
+    "koa": "^2.5.3",
+    "koa-router": "^7.4.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "David Lee",
+  "license": "ISC"
+}
