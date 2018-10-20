@@ -283,6 +283,13 @@ Program won't execute in the "sequence". ([Example](some-node-practice/7-1-nonbl
 
 * fs: read the contents of the file into Node.js server
 
+### package.json
+
+* [Working with package.json](https://docs.npmjs.com/getting-started/using-a-package.json)
+	* `npm init`
+	* After that, the file will track the dependencies of this project automatically. (you can also edit it manually)
+	* Then it can be simply use `npm install` to install all the dependencies without upload the `node_modules` folder (it should be list in `.gitignore`
+
 ## Notes about this project
 
 Dependencies
