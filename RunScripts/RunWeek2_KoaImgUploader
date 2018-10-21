@@ -1,0 +1,12 @@
+#!/bin/bash
+echo "Week 2 - Koa Image Uploader"
+
+cd ../Week2/KoaVersion
+
+echo "Download dependencies..."
+npm install
+
+echo "Running the server"
+echo "the server will be listening on port 3000"
+node index.js
+
