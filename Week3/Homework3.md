@@ -1,6 +1,6 @@
 # Homework 3
 
-## 1. What are the meanings or the usages of the folders in the Root (\) of the Linux directory
+## 1. What are the meanings or the usages of the folders in the Root ( \ ) of the Linux directory
 
 ### Linux
 
@@ -109,11 +109,94 @@
     * `/tmp`
     * `/var`
 
+## 2. Text editor in command line (IT'S A BATTLEFIELD!!)
+
+**!!!! MUST HAVE !!!!**
+
+VSCode + [vim extension](https://marketplace.visualstudio.com/items?itemName=vscodevim.vim) (+ iTerm2 in Mac OS X)
+
+**IF IN CLI THEN**
+
+vim + oh-my-zsh + tmux + powerline theme!!
+
+### vim skills
+
+There are too many things to list. I mean using vim is just a body language.
+
+#### Change or delete something
+
+> Change/Delete/Select, in/append/find, ()/[]/{}/""/''/word/front/end/...
+
+* Example
+    * df_
+    * ca"
+    * viw
+
+#### Select multiple line and insert same contents
+
+1. Ctrl + v
+2. Go through the file (using j, k)
+3. I (Shift + i)
+4. Type something
+5. Esc
+
+#### Move screen
+
+* zt: To the top
+* zz: Center the screen
+* zb: To the bottom
+
+#### Separate screen
+
+* Open file
+    * sp: filename
+* Move cursor
+    * Ctrl + w + h,j,k,l
+* Move window
+    * Ctrl + w + H,J,K,L
+
+#### Tracing code
+
+> Goto definition
+
+* Ctrl + ]
+
+> Back to the place
+
+* Ctrl + t
+* Ctrl + o
+* [The difference](https://stackoverflow.com/questions/8381415/what-is-the-difference-between-ctrl-t-and-ctrl-o-in-vim)
+
+#### Other skill
+
+> Put vim to back ground
+
+Ctrl + z
+
+> Get it back
+
+fg
+
+### vim must have plugin
+
+(all the configuration can be set in ~/.vimrc)
+
+* Vundle: (must have first)
+* YouCompleteMe
+* NERDTree
+* Taglist
+* Doxygen (for C)
+
+PS. I've been use vim for about 2 and a half years. Here is a [article](https://link.medium.com/B7udQq8jhR) about I learned vim after a week.
+(Ignore that I comment Sublime > VSCode then. I have to reaffirm that VSCode is the best text editor in GUI world and vim is the best in CLI world)
+
+PS2. nano syntax highlighting ([Github - nanorc](https://github.com/scopatz/nanorc), [How do I enable syntax highlighting in nano](https://askubuntu.com/questions/90013/how-do-i-enable-syntax-highlighting-in-nano))
+
 ## References
 
 * Q1
     * [What are those folders in your linux root directory](https://www.makeuseof.com/tag/folders-linux-root-directory/)
-        * recommand extra reading
+        * recommand extra reading by the article
             * [9 Quirky Linux Commands You Need to Know (And Will Love)](https://www.makeuseof.com/tag/x-quirky-linux-commands-need-know-will-love/)
             * [The Linux Kernel: An Explanation In Layman’s Terms](https://www.makeuseof.com/tag/linux-kernel-explanation-laymans-terms/)
             * [How to Kill Programs and Check System Information in Linux](https://www.makeuseof.com/tag/kill-programs-check-system-information-linux/)
