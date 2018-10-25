@@ -250,16 +250,16 @@ PS2. nano syntax highlighting ([Github - nanorc](https://github.com/scopatz/nano
 
 * Communicate through Netcat
     * Listen to a specific port for connections: 🖥 💻 `nc -l Port` (You can't listen a port when your server is also listening a port)
-    * Send message to another "Netcat": `nc IP_Address Port`
+    * Send message to another "Netcat": 🖥 💻 `nc IP_Address Port`
     * Send files
-        * Receiving end: `nc -l Port > received_file`
-        * Sending end: `nc IP_Address Port < original_file`
+        * Receiving end: 🖥 💻 `nc -l Port > received_file`
+        * Sending end: 🖥 💻 `nc IP_Address Port < original_file`
 
 ### 3.4 How to send a request to a port
 
 **telnet**
 
-* First connect to the server `telnet IP_Address Port`
+* First connect to the server 🖥 💻 `telnet IP_Address Port`
 * Send request (After finish type just press ENTER twice)
     * `GET /resources`
     * Or
@@ -269,6 +269,48 @@ PS2. nano syntax highlighting ([Github - nanorc](https://github.com/scopatz/nano
         ```
         * HEAD: Check HTTP response
         * GET: Get web page's content
+
+## 4. Request simulation
+
+### 4.1 Listen a port and sent a request to simulate a socket connection
+
+Like I mentioned in 3.3 - Communicate through Netcat
+
+![Picture4.1](Picture4.1.png)
+
+### 4.2 Acting like a HTTP Client and visit baidu.com:80
+
+* Fail:
+    * Send the request directly
+        * `telnet baidu.com 80`
+        * `GET / HTTP/1.1`
+        ![Picture4.2_badreq](Picture4.2_badreq.png)
+
+* Success:
+    * Send the request with Host
+        ![Picture4.2_host](Picture4.2_host.png)
+    * Google Chrome test 1
+        1. Listen a port by Netcat
+        2. Connect to the port using Google Chrome
+        3. Copy the received request
+        4. Modify the Host to www.baidu.com
+        5. Send the request by telnet
+    * Google Chrome test 2
+        1. Use Google Chrome Developer Tools to see what information the browser have send for me in a request.
+        2. `telnet baidu.com 80`
+        3. Copy paste the request
+
+Found that I don't have to pretend myself to be a browser to get the first response from baidu
+
+### 4.3 Simulate a HTTP Server and visit it by curl
+
+1. Listening a port using Netcat and connect to it using `curl localhost:port`
+    ![Picture4.3_init](Picture4.3_init.png)
+2. Send some shit back
+
+(copy paste a fake response which from the response I got by sending a fake request to my week 2 project few minutes ago :D)
+
+![Picture4.3_finish](Picture4.3_finish.png)
 
 ## References
 
