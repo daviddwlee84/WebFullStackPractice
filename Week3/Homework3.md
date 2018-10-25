@@ -199,6 +199,77 @@ PS. I've been use vim for about 2 and a half years. Here is a [article](https://
 
 PS2. nano syntax highlighting ([Github - nanorc](https://github.com/scopatz/nanorc), [How do I enable syntax highlighting in nano](https://askubuntu.com/questions/90013/how-do-i-enable-syntax-highlighting-in-nano))
 
+## 3. Internet related command
+
+> If command support Mac OS X => 💻 ; Support Linux => 🖥
+
+### 3.1 How to check your current IP address
+
+* 🖥 💻 `ifconfig`
+    * 🖥 💻 `ifconfig | grep "inet " | grep -v 127.0.0.1` (`grep -v`: select non-matching lines)
+* 🖥  `hostname -i`
+* 🖥 `ip addr`
+
+### 3.2 How to check listening ports
+
+* `netstat`
+    * 🖥 `netstat -plnt`
+    * 🖥 `netstat -tlpn | sort -t: -k2 -n`: Show TCP Listen ports sorted by number (bugs: IPv6 not supported)
+    * 💻 `netstat -nat | grep LISTEN`
+* `lsof`: You can get PID information
+    * 💻 `lsof -n -P -i TCP -s TCP:LISTEN`
+    * 🖥 💻 `lsof -i :port`
+* `ss`
+    * 🖥 `ss -l -p -n | grep LISTEN | grep tcp`
+* List ports a process PID is listening on
+    * 🖥 `ss -l -p -n | grep ",PID,"`
+
+### 3.3 How to listening or testing network services on a port
+
+> (If you have a network service that's not behaving like it should but you know it's listening to a network port.)
+
+**netcat**
+
+* Basic test
+    * 🖥 💻  `nc -vz IP_Address Port`
+        * succeeded!
+        * failed: Connection refused
+        * failed: Connection timed out
+    * 🖥 💻 `netcat -vz IP_Address 1-1000`: Scan all ports up to 1000
+* Further testing
+    * Connection Refused
+        * Is the service running?
+        * Is the firewall reject the connection?
+    * Connection Timed Out: often this happens when when your firewall is blocking the port
+        * Temporarily add a rule that will accept connections on the required port: 🖥 `sudo iptables -I INPUT 1 -p tcp --dport http -j ACCEPT`
+        * Remove the rule: 🖥 `sudo iptables -D INPUT 1`
+        * Check your current firewall configuration: 🖥 `sudo iptables -L -v`
+    * Connection Succeeded
+        * See if service can respond to basic network queries: 🖥 💻 `nc -vt IP_Address Port`
+        * Closing the connection: either press Ctrl + C or type the *service specific quit command* (e.g. FTP: QUIT)
+
+* Communicate through Netcat
+    * Listen to a specific port for connections: 🖥 💻 `nc -l Port` (You can't listen a port when your server is also listening a port)
+    * Send message to another "Netcat": `nc IP_Address Port`
+    * Send files
+        * Receiving end: `nc -l Port > received_file`
+        * Sending end: `nc IP_Address Port < original_file`
+
+### 3.4 How to send a request to a port
+
+**telnet**
+
+* First connect to the server `telnet IP_Address Port`
+* Send request (After finish type just press ENTER twice)
+    * `GET /resources`
+    * Or
+        ```
+        GET /resources HTTP/1.1
+        Host: host.address
+        ```
+        * HEAD: Check HTTP response
+        * GET: Get web page's content
+
 ## References
 
 * Q1
@@ -211,3 +282,16 @@ PS2. nano syntax highlighting ([Github - nanorc](https://github.com/scopatz/nano
 * Q2
     * [What is the difference between CTRL-T and CTRL-O in Vim?](https://stackoverflow.com/questions/8381415/what-is-the-difference-between-ctrl-t-and-ctrl-o-in-vim)
     * [Youtube - Improving Vim Speed](https://youtu.be/OnUiHLYZgaA)
+* Q3
+    * Q3.1
+        * [6 Ways to Find IP Information](https://www.wikihow.com/Find-IP-Information)
+        * [Shell Command for Getting IP Address](https://serverfault.com/questions/46645/shell-command-for-getting-ip-address)
+    * Q3.2
+        * [Check listening ports with netstat](https://support.rackspace.com/how-to/checking-listening-ports-with-netstat/)
+        * [List ports a process PID is listening on (preferably using iproute2 tools)?](https://unix.stackexchange.com/questions/157823/list-ports-a-process-pid-is-listening-on-preferably-using-iproute2-tools)
+    * Q3.3
+        * [**Testing network services with netcat**](https://support.rackspace.com/how-to/testing-network-services-with-netcat/)
+        * [**How To Use Netcat to Establish and Test TCP and UDP Connections on a VPS**](https://www.digitalocean.com/community/tutorials/how-to-use-netcat-to-establish-and-test-tcp-and-udp-connections-on-a-vps)
+    * Q3.4
+        * [How to send an HTTP request using Telnet](https://stackoverflow.com/questions/15772355/how-to-send-an-http-request-using-telnet)
+        * [Telnet – Send GET/HEAD HTTP Request](https://www.shellhacks.com/telnet-send-get-head-http-request/)
