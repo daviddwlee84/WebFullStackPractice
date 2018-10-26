@@ -312,6 +312,73 @@ Found that I don't have to pretend myself to be a browser to get the first respo
 
 ![Picture4.3_finish](Picture4.3_finish.png)
 
+## 5. Build a RESTful Web Server based on Koa and Postgres and containerize it using Dockerfile
+
+> Follow the tutorial [Building a RESTful API with Koa and Postgres](https://mherman.org/blog/building-a-restful-api-with-koa-and-postgres/) ([Github](https://github.com/mjhea0/node-koa-api))
+
+### Dependencies
+
+* Web Framework
+    * `Koa`
+        * [Koa vs Express](https://github.com/koajs/koa/blob/master/docs/koa-vs-express.md)
+    * [`koa-router`](https://github.com/alexmingoia/koa-router)
+* Test Driven Development (TDD)
+    * [`Mocha`](https://mochajs.org)
+    * [`Chai`](https://github.com/chaijs/chai)
+    * [`Chai HTTP`](https://github.com/chaijs/chai-http) - Test HTTP calls
+* Postgres - [Official Download link](https://www.postgresql.org/download/), [Postgres.app](https://postgresapp.com/)
+    * [`pg`](https://node-postgres.com/)
+    * [`Knex`](https://knexjs.org/)
+
+### Some notes about Postgres
+
+#### Installation
+
+* I tried [EnterpriseDB installer](https://www.enterprisedb.com/downloads/postgres-postgresql-downloads)
+* Open installer there will be a [README](EnterpriseDBPostgresREADME.txt) file
+    * Follow the instructions (Some shared memory stuff)
+    * Edit `sudo vim /etc/sysctl.conf`
+        ```
+        kern.sysv.shmmax=1610612736
+        kern.sysv.shmall=393216
+        kern.sysv.shmmin=1
+        kern.sysv.shmmni=32
+        kern.sysv.shmseg=8
+        kern.maxprocperuid=512
+        kern.maxproc=2048
+        ```
+    * Reboot and check it by `sysctl -a`
+* Go to the installation directory (In my case is /Library/PostgreSQL/11)
+* Open `pg_env.sh` and copy paste the environment setting in the shell configuration file (In my case is ~/.zshrc)
+* And now should be able to use `psql` command (If only add the /bin directory, there will be problems)
+
+#### knex
+
+* Install knex globally as well so you can use the CLI tool `npm install knex -g`
+* Create database `CREATE DATABASE database_name;`
+
+* Initialize a new config file *knexfile.js* by run `knex init` in the project root
+* Add a file called *connection.js* to the project/src/server/db folder. => Connect to the database using the appropriate knex configuation based on the environment (development, test, staging, production, etc.)
+
+* Create migration to define the database schema `knex migrate:make table_name`
+* Apply the migration to the development database `knex migrate:latest --env development`
+
+* Create a seed file to populate the database with some initial data `knex seed:make seed_name`
+* Apply the seed `knex seed:run --env development`
+
+* Test file
+    * process.env.NODE_ENV = 'test'
+    * require *connection.js*
+    * beforeEach() - is fired before any of test specs, applying the migrations to the test database
+        * knex.migrate.latest()
+        * knex.seed.run()
+    * afterEach() - after the specs run, the database is rolled back to a pristine state
+        * knex.migrate.rollback()
+
+#### Others
+
+* It's very convenient to use *pgAdmin 4* as a GUI tool. (Just like *phpMyAdmin* for MySQL)
+
 ## References
 
 * Q1
