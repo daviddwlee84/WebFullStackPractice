@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Must run Postgres on port 5432 before hand.
+# And create databases koa_api, koa_api_test and create table movies in koa_api
+# It's able to use knex with the script store in KoaMovieAPI/src/server/db
+
+echo "Week 3 - Koa Movie API (Server)"
+
+cd ../Week3/KoaMovieAPI
+
+echo "Download dependencies..."
+npm install
+
+echo "Running the server"
+echo "the server will be listening on port 3000"
+npm start
