@@ -1,0 +1,13 @@
+#!/bin/bash
+
+echo "Week 3 - Koa Movie API (Docker)"
+
+cd ../Week3/KoaMovieAPI
+
+echo "Building docker container..."
+
+docker build -t koa-movie-api .
+
+echo "Docker composing..."
+
+docker-compose up
