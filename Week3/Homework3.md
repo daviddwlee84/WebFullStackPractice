@@ -312,6 +312,10 @@ Found that I don't have to pretend myself to be a browser to get the first respo
 
 ![Picture4.3_finish](Picture4.3_finish.png)
 
+* POST: `curl --data "post1=value1&post2=value2" localhost:port/your/resources`
+
+* RESTful API: `curl -X HTTP_VERBS localhost:port/your/resources`
+
 ## 5. Build a RESTful Web Server based on Koa and Postgres and containerize it using Dockerfile
 
 > Follow the tutorial [Building a RESTful API with Koa and Postgres](https://mherman.org/blog/building-a-restful-api-with-koa-and-postgres/) ([Github](https://github.com/mjhea0/node-koa-api))
@@ -379,6 +383,64 @@ Found that I don't have to pretend myself to be a browser to get the first respo
 
 * It's very convenient to use *pgAdmin 4* as a GUI tool. (Just like *phpMyAdmin* for MySQL)
 
+## Docker
+
+### Docker File
+
+1. Indicate the image we based on (Node in this case)
+2. Set the working directory
+3. Copy all the stuff which is needed
+4. Run install command to get all our dependencies
+5. Set the CMD so it will run when we run the container
+
+[My Dockerfile](KoaMovieAPI/Dockerfile)
+
+* Build it `docker build -t koa-movie-api .`
+* Test it `docker run -p 1337:1337 koa-movie-api` (or Run in background use `-d` (detached mode))
+* Stop it `docker stop CONTAINER_ID` or `docker container stop CONTAINER_ID` (use `docker ps` or `docker container ls` to check the ID)
+
+### Docker Compose
+
+* [Overview of Docker Compose](https://docs.docker.com/compose/overview/)
+* [Install Docker Compose](https://docs.docker.com/compose/install/)
+* (Docker for Mac and Docker Toolbox already include Compose along with other Docker apps, so Mac users do not need to install Compose separately.)
+
+* We can just create two docker file. One for our server and another for Postgres. And start up each and since individually.
+* But by using docker-compose which allows you to compose multiple docker containers at once.
+
+* Initial docker-compose.yml from Docker [Get Started, Part 3: Services](https://docs.docker.com/get-started/part3/)
+* You can delete the *deploy* part just to make it more simple.
+
+* [postgres DockerHub](https://hub.docker.com/_/postgres/)
+* We need to change our database setting of our project.
+    * Edit *knexfile.js* from
+        ```js
+        connection: 'postgres://postgres:postgres@localhost:5432/koa_api'
+        ```
+    * to
+        ```js
+            connection: {
+                host: process.env.DB_HOST || 'localhost',
+                user: 'postgres',
+                password: 'postgres',
+                database: 'koa_api'
+            }
+        ```
+    * (If use [*sequelize*](https://github.com/sequelize/sequelize) should add `host: process.env.DB_HOST || 'localhost'`, because inside docker we need to change the host is (or it will use default - localhost))
+
+* We will want our Postgres database runs up before our web server runs up => [Control startup order in Compose](https://docs.docker.com/compose/startup-order/)
+* We will want our database is actual running not just the container => [wait-for-it script](https://github.com/vishnubob/wait-for-it) (don't forget to `chmod +x wait-for-it.sh` make it executable)
+* We need to modify our previous Dockerfile to execute wait-for-it scipt (Just COPY that)
+
+* Build it `docker-compose up`
+* Stop it `docker-compose down`
+
+#### Result
+
+GET, PUT, POST, DELETE
+
+![Picture5_Reqs.png](Picture5_Reqs.png)
+
 ## References
 
 * Q1
@@ -404,3 +466,7 @@ Found that I don't have to pretend myself to be a browser to get the first respo
     * Q3.4
         * [How to send an HTTP request using Telnet](https://stackoverflow.com/questions/15772355/how-to-send-an-http-request-using-telnet)
         * [Telnet – Send GET/HEAD HTTP Request](https://www.shellhacks.com/telnet-send-get-head-http-request/)
+* Q5
+    * [Youtube - Starting to Setup Docker](https://youtu.be/4W_NuaHVFbo) (start from 10:27)
+    * [Youtube - Docker Compose Node.js, Redis, and PostgreSQL](https://youtu.be/aetqo2nkQcA)
+    * [Stackoverflow - Setting up Docker with Knex.js and PostgreSQL](https://stackoverflow.com/questions/48751074/setting-up-docker-with-knex-js-and-postgresql)
