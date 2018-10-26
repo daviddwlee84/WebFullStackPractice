@@ -1,0 +1,22 @@
+version: "3"
+services:
+  db:
+    image: postgres
+    networks:
+      - webnet
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: koa_api
+  web:
+    # replace username/repo:tag with your name and image details
+    image: koa-movie-api
+    ports:
+      - "1337:1337"
+    networks:
+      - webnet
+    environment:
+      DB_HOST: db
+    command: ["./wait-for-it.sh", "db:5432", "--", "npm", "start"]
+networks:
+  webnet:
