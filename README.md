@@ -21,3 +21,20 @@ Week 5 (11/5 ~ 11/11) |Vue.js, GraphQL, Hasura|-|-
 ## Links
 
 * [Group Trello](https://trello.com/b/9Hv8SMCI)
+
+### Front-end Frameworks
+
+* Pure JS
+  * [Layui](https://www.layui.com/)
+    * [github](https://github.com/sentsin/layui/)
+* Vue based
+  * [Element](https://element.eleme.cn/#/en-US) - A Desktop UI Toolkit for Web
+    * [github](https://github.com/ElemeFE/element) ([Eleme Front End](https://github.com/elemefe))
+  * [VUX](https://doc.vux.li/zh-CN/) - Mobile UI Components based on Vue & WeUI
+    * [github](https://github.com/airyland/vux)
+
+### Learning Resources
+
+#### Learning by Doing
+
+* [nswbmw/N-blog](https://github.com/nswbmw/N-blog)
