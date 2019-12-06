@@ -32,6 +32,11 @@ Week 5 (11/5 ~ 11/11) |Vue.js, GraphQL, Hasura|-|-
     * [github](https://github.com/ElemeFE/element) ([Eleme Front End](https://github.com/elemefe))
   * [VUX](https://doc.vux.li/zh-CN/) - Mobile UI Components based on Vue & WeUI
     * [github](https://github.com/airyland/vux)
+* React based
+  * [Ant Design](https://ant.design/) - The world's second most popular React UI framework
+    * [github](https://github.com/ant-design/ant-design)
+  * [Material-UI](https://material-ui.com/) - A popular React UI framework
+    * [github](https://github.com/mui-org/material-ui)
 
 ### Learning Resources
 
