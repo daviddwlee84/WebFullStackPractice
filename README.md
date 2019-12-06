@@ -38,6 +38,12 @@ Week 5 (11/5 ~ 11/11) |Vue.js, GraphQL, Hasura|-|-
   * [Material-UI](https://material-ui.com/) - A popular React UI framework
     * [github](https://github.com/mui-org/material-ui)
 
+### Tools
+
+* [webpack](https://webpack.js.org/) ([github page](https://webpack.github.io/))
+  * [github](https://github.com/webpack/webpack)
+  * [vuejs/vue-loader](https://github.com/vuejs/vue-loader) - 📦 Webpack loader for Vue.js components
+
 ### Learning Resources
 
 #### Learning by Doing
